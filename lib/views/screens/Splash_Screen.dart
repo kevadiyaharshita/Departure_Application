@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:departure_application/controller/Language_Controller.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/MyRoutes.dart';
 
@@ -15,7 +17,9 @@ class SplashScreen extends StatelessWidget {
     Timer.periodic(
       Duration(seconds: 4),
       (timer) {
-        Navigator.of(context).pushReplacementNamed(MyRoutes.home);
+        Provider.of<LanguageController>(context, listen: false).getLanguage
+            ? Navigator.of(context).pushReplacementNamed(MyRoutes.english_home)
+            : Navigator.of(context).pushReplacementNamed(MyRoutes.home);
         timer.cancel();
       },
     );

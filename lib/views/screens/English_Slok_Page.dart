@@ -8,11 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
-import '../../controller/LikeController.dart';
 import '../../controller/Theme_Controller.dart';
 
-class SlokPage extends StatelessWidget {
-  const SlokPage({super.key});
+class EnglishSlokPage extends StatelessWidget {
+  const EnglishSlokPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +32,7 @@ class SlokPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: Text("|| अध्याय: : ${index + 1} ||"),
+          title: Text("|| Chapter : ${index + 1} ||"),
           centerTitle: true,
           backgroundColor: Provider.of<ThemeController>(context).getTheme
               ? Colors.black54.withOpacity(0.5)
@@ -44,7 +43,8 @@ class SlokPage extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: List.generate(
-                JsonGeetaHelper.jesongeetahelper.adhyay[index]['verses_count'],
+                JsonEnglishGeetaHelper.jesonenglishgeetahelper.adhyay[index]
+                    ['verses_count'],
                 (idx) {
                   return Container(
                     height: 570,
@@ -99,14 +99,14 @@ class SlokPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                "~:  श्लोक ${idx + 1}:~",
+                                "~: Verse ${idx + 1}:~",
                                 style: TextStyle(fontSize: 22),
                               ),
                               Gap(20),
                               Padding(
                                 padding: EdgeInsets.only(left: 10, right: 10),
                                 child: Text(
-                                  "${JsonGeetaHelper.jesongeetahelper.adhyayWiseverses[index]['${idx + 1}']['text']}",
+                                  "${JsonEnglishGeetaHelper.jesonenglishgeetahelper.adhyayWiseverses[index]['${idx + 1}']['transliteration']}",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 22,
@@ -123,14 +123,14 @@ class SlokPage extends StatelessWidget {
                                 style: TextStyle(fontSize: 22),
                               ),
                               Text(
-                                "|| अनुवाद  ||",
+                                "|| Meaning ||",
                                 style: TextStyle(fontSize: 22),
                               ),
                               Gap(20),
                               Padding(
                                 padding: EdgeInsets.only(left: 10, right: 10),
                                 child: Text(
-                                  '${JsonGeetaHelper.jesongeetahelper.adhyayWiseverses[index]['${idx + 1}']['meaning']}',
+                                  '${JsonEnglishGeetaHelper.jesonenglishgeetahelper.adhyayWiseverses[index]['${idx + 1}']['meaning']}',
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 6,
                                   textAlign: TextAlign.center,
@@ -144,20 +144,22 @@ class SlokPage extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Consumer<LikeController>(
+                              Consumer<EnglishLikeController>(
                                   builder: (context, provider, _) {
                                 return IconButton(
                                   onPressed: () {
                                     provider.addLikeSlok(
-                                        m: JsonGeetaHelper.jesongeetahelper
+                                        m: JsonEnglishGeetaHelper
+                                                .jesonenglishgeetahelper
                                                 .adhyayWiseverses[index]
                                             ['${idx + 1}']);
                                   },
                                   icon: Icon(
-                                    (provider.getLike.contains(JsonGeetaHelper
-                                                .jesongeetahelper
-                                                .adhyayWiseverses[index]
-                                            ['${idx + 1}']))
+                                    (provider.getLike.contains(
+                                            JsonEnglishGeetaHelper
+                                                    .jesonenglishgeetahelper
+                                                    .adhyayWiseverses[index]
+                                                ['${idx + 1}']))
                                         ? CupertinoIcons.heart_solid
                                         : CupertinoIcons.heart,
                                     size: 30,
